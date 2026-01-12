@@ -17,6 +17,7 @@ resource "azurerm_logic_app_workflow" "la" {
   logic_app_integration_account_id   = try(var.settings.logic_app_integration_account_id, null)
   workflow_schema                    = try(var.settings.workflow_schema, null)
   workflow_version                   = try(var.settings.workflow_version, null)
+  workflow_parameters                = try(var.settings.workflow_parameters, null)
   parameters                         = try(var.settings.parameters, null)
   tags                               = local.tags
 }
