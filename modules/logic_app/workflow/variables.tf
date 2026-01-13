@@ -36,5 +36,7 @@ variable "logic_app_integration_account_id" {
 variable "identity" {
   default = null
 }
-
+variable "combined_objects" {
+  default = {}
+}
 
