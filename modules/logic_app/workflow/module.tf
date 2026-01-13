@@ -20,6 +20,15 @@ resource "azurerm_logic_app_workflow" "la" {
   workflow_parameters                = try(var.settings.workflow_parameters, null)
   parameters                         = try(var.settings.parameters, null)
   tags                               = local.tags
+
+  dynamic "identity" {
+    for_each = try(var.identity, null) == null ? [] : [1]
+
+    content {
+      type         = var.identity.type
+      identity_ids = lower(var.identity.type) == "userassigned" ? local.managed_identities : null
+    }
+  }
 }
 
 
