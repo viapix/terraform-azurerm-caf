@@ -22,11 +22,10 @@ resource "azurerm_logic_app_workflow" "la" {
   tags                               = local.tags
 
   dynamic "identity" {
-    for_each = try(var.identity, null) == null ? [] : [1]
-
+    for_each = try(var.settings.identity, null) != null ? [var.settings.identity] : []
     content {
-      type         = var.identity.type
-      identity_ids = lower(var.identity.type) == "userassigned" ? local.managed_identities : null
+      type         = try(identity.value.type, null)
+      identity_ids = try(identity.value.identity_ids, null)
     }
   }
 }
