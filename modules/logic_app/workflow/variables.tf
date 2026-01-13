@@ -33,6 +33,8 @@ variable "logic_app_integration_account_id" {
   type        = string
   default     = null
 }
-
+variable "identity" {
+  default = null
+}
 
 
