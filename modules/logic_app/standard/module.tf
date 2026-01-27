@@ -18,6 +18,14 @@ resource "azurerm_logic_app_standard" "logic_app_standard" {
   https_only                 = lookup(var.settings, "https_only", null)
   app_settings               = local.app_settings
 
+  dynamic "identity" {
+    for_each = try(var.settings.identity, null) != null ? [var.settings.identity] : []
+    content {
+      type         = try(identity.value.type, null)
+      identity_ids = try(identity.value.identity_ids, null)
+    }
+  }
+
   dynamic "site_config" {
     for_each = lookup(var.settings, "site_config", {}) != {} ? [1] : []
 
